@@ -16,13 +16,10 @@ import dto.Admin;
 
 public class AdminLogin extends HttpServlet
 {
-	
-	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
 	{
 
-		
 		String adminmail = req.getParameter("amail");
 		String adminpassword = req.getParameter("apass");
 		
