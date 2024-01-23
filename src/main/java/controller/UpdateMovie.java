@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import dao.Dao;
@@ -44,30 +45,43 @@ public class UpdateMovie extends HttpServlet
 		Dao dao = new Dao();
 				
 		try {
-			
-			if(imagepart.getInputStream().readAllBytes().length < 1)
-			{
-				Movie dmovie = dao.getPrriviousMovieImage(movieid);
-				movie.setMovieimage(dmovie.getMovieimage());
-				dao.UpdateMovie(movie);
+				HttpSession sesion = req.getSession();
+				String adminname =(String) sesion.getAttribute("adminname");
+				
+				if(adminname != null)
+				{
+					if(imagepart.getInputStream().readAllBytes().length < 1)
+					{
+						Movie dmovie = dao.getPrriviousMovieImage(movieid);
+						movie.setMovieimage(dmovie.getMovieimage());
+						dao.UpdateMovie(movie);
+							
+						req.setAttribute("movies",dao.getMovie());
+						RequestDispatcher  dsp= req.getRequestDispatcher("home.jsp");
+						dsp.include(req, resp);
+								
+					}
+					else 
+					{
+						movie.setMovieimage(imagepart.getInputStream().readAllBytes());
+						dao.UpdateMovie(movie);
+						
+						req.setAttribute("movies",dao.getMovie());
+						RequestDispatcher  dsp= req.getRequestDispatcher("home.jsp");
+						dsp.include(req, resp);
+						
 					
-				req.setAttribute("movies",dao.getMovie());
-				RequestDispatcher  dsp= req.getRequestDispatcher("home.jsp");
-				dsp.include(req, resp);
-						
-			}
-			else 
-			{
-				movie.setMovieimage(imagepart.getInputStream().readAllBytes());
-				dao.UpdateMovie(movie);
+								
+						}		
+				}
+				else
+				{
+					req.setAttribute("message", "Acces Denied , Admin Login Required");
+					RequestDispatcher rd = req.getRequestDispatcher("adminlogin.jsp");
+					rd.include(req, resp);
+				}
 				
-				req.setAttribute("movies",dao.getMovie());
-				RequestDispatcher  dsp= req.getRequestDispatcher("home.jsp");
-				dsp.include(req, resp);
-				
-			
-						
-				}				
+					
 						
 		
 		} catch (ClassNotFoundException e) {

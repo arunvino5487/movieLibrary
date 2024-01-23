@@ -78,6 +78,7 @@ for(Movie m : movies){
 
 
 <a href="addmovie.jsp">Add Movie</a>
+<a href="logout">Log out</a>
 
 
 </body>
