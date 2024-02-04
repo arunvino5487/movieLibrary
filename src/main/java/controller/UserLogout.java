@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-@WebServlet("/logout")
-public class Logout extends HttpServlet
+@WebServlet("/userlogout")
+public class UserLogout extends HttpServlet
 {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
@@ -19,7 +18,9 @@ public class Logout extends HttpServlet
 		HttpSession session = req.getSession(false);
 		session.invalidate();
 		
-		RequestDispatcher rdt = req.getRequestDispatcher("adminlogin.jsp");
-		rdt.include(req, resp);
+		RequestDispatcher rst = req.getRequestDispatcher("userlogin.jsp");
+		rst.include(req, resp);
+		
 	}
+
 }

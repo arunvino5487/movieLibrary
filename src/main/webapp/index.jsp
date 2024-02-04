@@ -43,7 +43,7 @@ body{
     <a href="admin.jsp">Admin</a>
   </li>
   <li class="nav-item">
-   <th><a href="">User</a></th>
+   <th><a href="user.jsp">User</a></th>
   </li>
  
 </ul>

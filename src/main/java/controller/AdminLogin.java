@@ -65,14 +65,12 @@ public class AdminLogin extends HttpServlet
 		}
 		catch (ServletException e1) 
 		{
-			req.setAttribute("message", "  Email Is Worng");
-			RequestDispatcher dsp = req.getRequestDispatcher("adminlogin.jsp");
-			dsp.include(req, resp);
+			
 			
 		}catch (SQLException e)
 		{
 			
-			req.setAttribute("message", "  Email Is Worng");
+			req.setAttribute("message", "  Enter Valid Credintials");
 			RequestDispatcher dsp = req.getRequestDispatcher("adminlogin.jsp");
 			dsp.include(req, resp);
 		
